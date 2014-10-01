@@ -7,13 +7,13 @@ description:
 
 args:
   url:
-    flags:
-    - -u
-    - --url
+    flags: [-u, --url]
     help:
       Url of the project git repo (uses http/https/git).
-    required:
-      True
+  gh_repo:
+    flags: [-r, --gh-repo]
+    help:
+      Username/Repository of a project hosted on GitHub. Not active when URL is specified.
   path:
     use: common_args
     help:
@@ -32,6 +32,12 @@ run:
 - if not $(test -e "$path"):
   - cl: mkdir -p "$path"
 - cl: cd "$path"
+
+- if not defined $url:
+  - if not defined $gh_repo:
+    - log_e: "You must specify either URL or GitHub repository."
+  - else:
+    - $url~: $(echo "git://github.com/$gh_repo.git")
 
 - if defined $gh_fork:
   - $gh_username~:
