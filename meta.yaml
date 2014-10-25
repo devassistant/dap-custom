@@ -1,0 +1,15 @@
+package_name: custom
+version: 0.10.0dev
+license: GPLv2+
+authors: [Bohuslav Kabrda <bkabrda@redhat.com>]
+homepage: https://github.com/devassistant/dap-custom
+summary: Custom prep assistants to develop on an upstream project
+bugreports: https://github.com/devassistant/dap-custom/issues
+dependencies:
+  - common_args
+description: |
+    The custom assistant sets up environment for developing custom project previously
+    created with DevAssistant.
+    
+    Only use this with projects whose upstream you trust, since the project
+    can specify arbitrary custom commands that will run on your machine.
