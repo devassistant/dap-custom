@@ -7,6 +7,7 @@ summary: Custom prep assistants to develop on an upstream project
 bugreports: https://github.com/devassistant/dap-custom/issues
 dependencies:
   - common_args
+  - github
 description: |
     The custom assistant sets up environment for developing custom project previously
     created with DevAssistant.

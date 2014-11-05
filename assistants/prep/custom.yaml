@@ -34,19 +34,13 @@ run:
     - $url~: $(echo "git://github.com/$gh_repo.git")
 
 - if defined $gh_fork:
-  - $gh_username~:
-    - use:
-        sect: github.run_get_github_username
-        args:
-          from: $gh_fork
   - $oldurl: $url
-  - $lres, $url~:
-    - github:
-      - create_fork
-      - login: $gh_username
-        repo_url: $url
-  - if not $lres:
-    - log_e: Failed to fork github repo, exiting ...
+  - $url~:
+    - use:
+        sect: github.run_github_fork
+        args:
+          gh_username: $gh_fork
+          url: $url
 
 - log_i: "Cloning project from remote git repo ..."
 - $git_output~: $(git clone "$url")
