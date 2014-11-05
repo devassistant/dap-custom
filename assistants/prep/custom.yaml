@@ -35,7 +35,10 @@ run:
 
 - if defined $gh_fork:
   - $gh_username~:
-    - use: self.run_get_github_username
+    - use:
+        sect: github.run_get_github_username
+        args:
+          from: $gh_fork
   - $oldurl: $url
   - $lres, $url~:
     - github:
@@ -63,14 +66,3 @@ run:
 - else:
   - log_i: "No .devassistant file found, skipping project-specific setup."
 - log_i: "Your project is prepared in $path/$dirname."
-
-# Determining the correct username in this order: user-provided argument > github global config > whoami
-run_get_github_username:
-- if $([ "$gh_fork" == "" ]):
-  - $gh_conf_username~: $(git config --global --get-regexp 'github\.user\..*' '.+' | head -1 | grep -o '\S\+$')
-  - if not "$gh_conf_username":
-    - $gh_username~: $(whoami)
-  - else:
-    - $gh_username~: "$gh_conf_username"
-- else:
-  - $gh_username~: "$gh_fork"
