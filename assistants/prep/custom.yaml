@@ -19,13 +19,7 @@ args:
     help:
       Path where to checkout the repo (will be created if it does not exist).
   gh_fork:
-    flags: [--gh-fork]
-    help: Fork the repo, assuming it's on Github. Pass your GH username as argument if it's
-          different from your system username.
-    action: [default_iff_used, '']
-    nargs: '?'
-    gui_hints:
-      default: $(whoami)
+    use: common_args
     preserved: prep.custom.gh_fork
 
 run:
