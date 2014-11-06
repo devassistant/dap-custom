@@ -9,8 +9,9 @@ dependencies:
   - common_args
   - github
 description: |
-    The custom assistant sets up environment for developing custom project previously
-    created with DevAssistant.
-    
-    Only use this with projects whose upstream you trust, since the project
-    can specify arbitrary custom commands that will run on your machine.
+    The custom assistant sets up environment for developing custom project
+    previously created with DevAssistant.
+
+    If the project contains a .devassistant file, you may choose to execute it.
+    However, only do so with projects you trust, since the file can contain
+    arbitrary custom commands that will run on your machine.

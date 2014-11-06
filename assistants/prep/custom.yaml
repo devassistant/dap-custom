@@ -63,8 +63,15 @@ run:
   - log_i: Adding original upstream project as "upstream" git remote.
   - cl: git remote add upstream $oldurl
 - if $(test -e .devassistant):
-  - dda_dependencies: .
-  - dda_run: .
+  - $confirmed~:
+    - ask_confirm:
+        message: The project contains a .devassistant file.
+        prompt: Do you want to execute it?
+  - if $confirmed:
+    - dda_dependencies: .
+    - dda_run: .
+  - else:
+    - log_w: ".devassistant execution aborted by user"
 - else:
   - log_i: "No .devassistant file found, skipping project-specific setup."
 - log_i: "Your project is prepared in $path/$dirname."
