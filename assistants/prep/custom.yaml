@@ -14,12 +14,17 @@ args:
     flags: [-r, --gh-repo]
     help:
       Username/Repository of a project hosted on GitHub. Not active when URL is specified.
+  ssh:
+    flags: [-s, --ssh]
+    action: store_true
+    help:
+      When cloning with --gh-repo, use SSH protocol instead of git.
   path:
     use: common_args
     help:
       Path where to checkout the repo (will be created if it does not exist).
   gh_fork:
-    use: common_args
+    use: github
     preserved: prep.custom.gh_fork
 
 run:
@@ -31,7 +36,10 @@ run:
   - if not defined $gh_repo:
     - log_e: "You must specify either URL or GitHub repository."
   - else:
-    - $url~: $(echo "git://github.com/$gh_repo.git")
+    - if defined $ssh:
+      - $url~: $(echo "ssh://git@github.com/$gh_repo.git")
+    - else:
+      - $url~: $(echo "git://github.com/$gh_repo.git")
 
 - if defined $gh_fork:
   - $oldurl: $url
